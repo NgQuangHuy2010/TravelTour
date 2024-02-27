@@ -22,8 +22,9 @@ class BlogController extends Controller
 
     public function detail($id)
     {
-        $blogDetail = Blog::find($id);
-        return view('interface/pages/blogDetail', compact('blogDetail'));
+        $data["random"] = Blog::inRandomOrder()->limit(3)->get();      
+       $data["blogDetail"]  = Blog::find($id);
+        return view('interface/pages/blogDetail', $data);
     }
     public function create()
     {

@@ -622,3 +622,7 @@ display: flex;
 border-radius: 10px !important;
 border: #CCC;
 }
+/* css blog */
+.title-hover:hover{
+    color: #2996bb;
+}

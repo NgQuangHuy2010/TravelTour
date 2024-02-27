@@ -140,9 +140,10 @@
           <li class="nav-item">
             <a href="{{ route('ht.ordermomo') }}" aria-current="page" class="nav-link">
               <i class="icon">
-                <i class="fa-solid fa-calendar-days" width="20"></i>
+                <i class="fa-solid fa-money-bill" width="20"></i>
+             
               </i>
-              <span class="item-name"> Order Momo</span>
+              <span class="item-name">Đơn hàng</span>
             </a>
           </li>
         </ul>

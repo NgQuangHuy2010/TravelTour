@@ -9,7 +9,7 @@
             <div class="card">
                 <div class="card-header d-flex justify-content-between">
                     <div class="header-title">
-                        <h4 class="card-title">Blogs</h4>
+                        <h4 class="card-title">Tin tức</h4>
                     </div>
                     <div>
                         <a href="{{route('blog.create')}}" class="btn btn-link btn-soft-light bg-primary text-white ">

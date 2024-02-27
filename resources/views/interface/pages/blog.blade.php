@@ -1,41 +1,64 @@
 @extends('interface.layout_interface')
 
 @section('content')
-<div class="container-xxl py-5">
-
+<style>
+     .rounded-image {
+        border-top-left-radius: 1rem !important;
+        border-bottom-left-radius: 1rem !important;
+    }
+</style>
+<div class="container-xxl py-5 my-3">
     <div class="container">
         <div class="row justify-content-center py-5">
-            <h1><strong>Blogs</strong></h1>
+            <h1><strong>Tin tức du lịch</strong></h1>
         </div>
 
         <div class="row g-4 justify-content-center">
-            @foreach($blog as $item)
-            <!-- <div>
-                <h2>{{ $item->title }}</h2>
-                <p>{{ $item->content }}</p>
-                @if($item->image)
-                <img src="{{ asset($item->image) }}" alt="Blog Image" style="width: 200px;">
-                @endif
-            </div>
-            <hr> -->
-            <div class="col-lg-4 col-md-6 wow fadeInUp" data-wow-delay="0.1s">
-                <div class="package-item">
-                    <div class="overflow-hidden" style="height: 300px;object-fit:cover">
-                        <img class="img-fluid" style="min-height:300px;" src="{{ asset('public/file/img/img_blog/'.$item->image) }}" alt="Blog Image">
+            @if(count($blog) > 0)
+            <!-- Hiển thị bài viết mới nhất -->
+            <div class="col-lg-6 col-md-6 wow fadeInUp" data-wow-delay="0.1s">
+                <div class="">
+                    <div class="overflow-hidden rounded-image" style="height: 300px; object-fit: cover;">
+                        <img class="img-fluid" style="min-height: 300px;"
+                            src="{{ asset('public/file/img/img_blog/'.$blog[0]->image) }}" alt="Blog Image">
                     </div>
-                    <div class="text-center p-4">
-                        <h3 class="mb-0">{{ $item->title }}</h3>
-                        <div style="text-overflow: ellipsis;overflow:hidden;white-space:nowrap;-webkit-line-clamp: 1;-webkit-box-orient: vertical;display: -webkit-box; ">{!!$item->description!!}</div>
-                        <div class="d-flex justify-content-center mb-2">
-                            <a href="{{route('blog.detail', $item->id)}}" class="btn btn-sm btn-primary px-3 border-end" style="border-radius: 30px">Đọc thêm</a>
-                        </div>
+                    <div class=" p-4 ">
+                    <a href="{{ route('blog.detail', $blog[0]->id) }}"><h4 class="mb-0 d-flex title-hover">{{ $blog[0]->title }}</h4></a>    
+                        <div class="d-flex"
+                            style="text-overflow: ellipsis; overflow: hidden; white-space: nowrap; -webkit-line-clamp: 1; -webkit-box-orient: vertical; display: -webkit-box;">
+                                {{ date('d-m-Y', strtotime($blog[0]->created_at)) }}</div>
+                        
                     </div>
                 </div>
             </div>
-            @endforeach
+            <!-- Hiển thị các bài viết cũ hơn -->
+            <div class="col-lg-6 col-md-6">
+                @foreach($blog->slice(1) as $item)
+                <div class=" d-flex mb-3">
+                    <div class="overflow-hidden rounded-image"
+                        style="height: 130px; width: 150px; object-fit: cover; flex-shrink: 0;">
+                        <img class="img-fluid" style="height: 100%; width: 100%;"
+                            src="{{ asset('public/file/img/img_blog/'.$item->image) }}" alt="Blog Image">
+                    </div>
+                    <div class="px-4">
+                     <a href="{{ route('blog.detail', $item->id) }}"><h4 class="title-hover mb-0 text-break">{{ $item->title }}</h4></a>   
+                        <div class="d-flex"
+                            style="text-overflow: ellipsis; overflow: hidden; white-space: nowrap; -webkit-line-clamp: 1; -webkit-box-orient: vertical; display: -webkit-box;">
+                                {{ date('d-m-Y', strtotime($item->created_at)) }}</div>
+                        
+                    </div>
+
+
+                </div>
+                @endforeach
+            </div>
+            @endif
         </div>
 
     </div>
 </div>
+
+
+
 
 @endsection

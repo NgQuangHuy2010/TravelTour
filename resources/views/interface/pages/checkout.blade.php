@@ -11,7 +11,7 @@
 <div class="container-xxl my-5 py-5" style=" max-width: 1320px; ">
 
     <div class="row my-4">
-        <h3 class="text-muted">Payment</h3>
+        <h3 class="text-muted">Thanh toán</h3>
     </div>
     <hr>
     <div class="row">
@@ -25,26 +25,26 @@
                 <div>
                     <h5><strong>{{ $booking->name }}</strong></h5>
                 </div>
-                <div class="pt-3"><small>Tour code</small>&nbsp; <strong>{{ $booking->tour_code }} </strong></div>
-                <div class="pt-3"> <small>Start date</small> &nbsp; <strong>{{ date('d-m-Y',
+                <div class="pt-3"><small>Mã tour</small>&nbsp; <strong>{{ $booking->tour_code }} </strong></div>
+                <div class="pt-3"> <small>Ngày đi</small> &nbsp; <strong>{{ date('d-m-Y',
                         strtotime($booking->date_start))
                         }}</strong></div>
 
-                <div class="pt-3"> <small>End date</small> &nbsp; <strong>{{ date('d-m-Y', strtotime($booking->date_end))
+                <div class="pt-3"> <small>Ngày về</small> &nbsp; <strong>{{ date('d-m-Y', strtotime($booking->date_end))
                         }}</strong></div>
-                <div class="pt-3"><small>Duration</small>&nbsp; <strong>{{ $booking->keyword }} </strong></div>
-                <div class="pt-3"> <small>Departure Location</small> &nbsp; <strong>{{ $booking->departurelocation
+                <div class="pt-3"><small>Thời gian đi</small>&nbsp; <strong>{{ $booking->keyword }} </strong></div>
+                <div class="pt-3"> <small>Điểm đi</small> &nbsp; <strong>{{ $booking->departurelocation
                         }}</strong>
                 </div>
-                <div class="pt-3"> <small>Arrival Locations</small> &nbsp; <strong>{{ $booking->arrivallocation }}</strong></div>
-                <div class="pt-3"> <small>Transportation</small>&nbsp; <strong>{{ $booking->vehicle }}</strong>
+                <div class="pt-3"> <small>Điểm đến</small> &nbsp; <strong>{{ $booking->arrivallocation }}</strong></div>
+                <div class="pt-3"> <small>Phương tiện di chuyển</small>&nbsp; <strong>{{ $booking->vehicle }}</strong>
                 </div>
 
             </div>
         </div>
     </div>
     <div class="container my-5">
-        <h4><strong class="text-muted pb-3">Contact Information</strong></h4>
+        <h4><strong class="text-muted pb-3">Thông tin liên hệ và số lượng người đi</strong></h4>
 
         <div class="row ">
             <div class="col-lg-7 bg-light p-3 mt-4" >
@@ -60,6 +60,7 @@
                     <input type="hidden" name="keyword" value="{{$booking->keyword}}">
                     <input type="hidden" name="status" value="{{$booking->status}}">
                     <input type="hidden" name="tour_code" value="{{$booking->tour_code}}">
+                    <input type="hidden" name="random_number" id="randomNumberInput">
                     @if(Auth::check())
                     <input type="hidden" name="user_id" value="{{ Auth::user()->id }}">
                     @endif
@@ -70,7 +71,7 @@
                     ?>
                     <div class="row p-3">
                         <div class="col-sm-6">
-                            <label for="name">Full Name</label>
+                            <label for="name">Tên khách hàng</label>
                             <input type="name" class="form-control" placeholder="" name="fullname"
                                 value="<?php echo Auth::user()->fullname; ?>" id="name" required>
                         </div>
@@ -82,35 +83,35 @@
                     </div>
                     <div class="row p-3">
                         <div class="col-sm-6 mt-3">
-                            Phone number<input type="tel" class="form-control" placeholder="" name="phone"
+                            Số điện thoại<input type="tel" class="form-control" placeholder="" name="phone"
                                 value="<?php echo Auth::user()->phone; ?>" id="phone">
 
                         </div>
                         <div class="col-sm-6 mt-3">
-                            Address<input type="text" class="form-control" placeholder="" name="address"
+                            Địa chỉ<input type="text" class="form-control" placeholder="" name="address"
                                 value="<?php echo Auth::user()->address; ?>" id="address">
 
                         </div>
 
                     </div>
                     
-                    <h5><strong class="text-muted">Passenger</strong></h5>
+                    <h5><strong class="text-muted">Hành khách</strong></h5>
 
                     <div class="row p-3">
                         <div class="col-sm-6">
-                        Adults<input type="number" min="1" value="1" class="form-control"
+                        Người lớn<input type="number" min="1" value="1" class="form-control"
                                 placeholder="No adults" name="person1" data-person="adults"
                                 data-price="{{ $booking->price1 }}">
                         </div>
                         <div class="col-sm-6">
-                        Children<input type="number" min="0" value="0" class="form-control "
+                        Trẻ em<input type="number" min="0" value="0" class="form-control "
                                 placeholder="No children" name="person2" data-person="children"
                                 data-price="{{ $booking->price2 }}">
                         </div>
                     </div>
                     <div class="row p-3">
                         <div class="col-sm-6 mt-3">
-                        Babies<input type="number" min="0" value="0" class="form-control"
+                        Trẻ nhỏ<input type="number" min="0" value="0" class="form-control"
                                 placeholder="No babies" name="person3" data-person="babies"
                                 data-price="{{ $booking->price3 }}">
                         </div>
@@ -120,15 +121,15 @@
                     <input type="hidden" value="{{ $booking->price3 }}" name="price3">
                     <input type="hidden" value="{{ $booking->price }}" name="price0">
 
-                    <h5><strong class="text-muted">Please note down any other request:</strong></h5>
+                    <h5><strong class="text-muted">Yêu cầu khác (nếu có)</strong></h5>
                     <div class="row m-3">
                         <textarea name="" id="" cols="5" rows="5"></textarea>
                     </div>
 
 
                     <?php }else{ ?>
-                    <div align="center">Login to proceed
-                        <a href="{{route('gd.login')}}"><h2 style="color:lightblue;">Login</h2></a>
+                    <div align="center">Vui lòng đăng nhập !
+                        <a href="{{route('gd.login')}}">Đăng nhập</a>
                     </div>
                     <?php } ?>
             </div>
@@ -139,7 +140,7 @@
             <div class="col-lg-5 wow fadeInUp" data-wow-delay="0.3s">
                 <div class="p-4 border border-secondary-subtle rounded">
                     <div class="border-0">
-                        <h4 class="font-weight-semi-bold m-0">Total</h4>
+                        <h4 class="font-weight-semi-bold m-0">Tổng tiền</h4>
                     </div>
                     <div class="card-body mt-5">
 
@@ -161,7 +162,7 @@
                     </div>
                     <div class="card-footer border-secondary bg-transparent">
                         <div class="d-flex justify-content-between mt-2">
-                            <h4 class="font-weight-bold">Total</h4>
+                            <h4 class="font-weight-bold">Tổng</h4>
 
                             <h4 class="font-weight-bold text-danger" id="totalAmount"></h4>
                         </div>
@@ -189,7 +190,13 @@
     }
 </style>
 <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+<script>
+    // Tạo số ngẫu nhiên
+    var randomNumber = Math.floor(Math.random() * 1000000); // Ví dụ: Số ngẫu nhiên từ 0 đến 999999
 
+    // Lưu số ngẫu nhiên vào một input ẩn trong form
+    document.getElementById('randomNumberInput').value = randomNumber;
+</script>
 <script>
     $(document).ready(function () {
         var mainPrice = convertPriceToNumber("{{$booking->price}}");

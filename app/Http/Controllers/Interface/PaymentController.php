@@ -10,7 +10,7 @@ use App\Models\Products;
 use App\Models\Booking;
 use Mail;
 use Carbon\Carbon;
-Use Illuminate\Contracts\Mail\Mailable;
+use Illuminate\Contracts\Mail\Mailable;
 use Illuminate\Support\Facades\DB;
 use Session;
 use Illuminate\Bus\Queueable;
@@ -23,13 +23,63 @@ class PaymentController extends Controller
 {
     public function pay()
     {
+
         return view('interface.pages.pay');
     }
 
     public function confirmPayment(Request $request)
     {
+       
+        $ordermomo_sesion = $request->session()->get('order');
+        DB::table('order_momo')->insert([
+                    'user_id' =>  $ordermomo_sesion['user_id'],
+                    'partner_code' =>  $ordermomo_sesion['partnerCode'],
+                    'order_id' =>$ordermomo_sesion['orderId'],
+                    'amount' => $ordermomo_sesion['amount'],
+                    'order_info' => $ordermomo_sesion['orderInfo'],
+                    'created_at' => $ordermomo_sesion['created_at'],
+                    'updated_at' => $ordermomo_sesion['updated_at']
+            ]);
+            $order = DB::table('order_momo')->where('order_id', '=', $ordermomo_sesion['orderId'])->first();
+            $bookingdetails = $request->session()->get('booking');
+        DB::table('bookings')->insert([
+                    'order_id' =>  $order->id,
+                    'order_id_momo' => $ordermomo_sesion['orderId'],
+                    'user_id' => $bookingdetails['user_id'],
+                    'schedule_id' => $bookingdetails['schedule_id'],
+                    'fullname' => $bookingdetails['fullname'],
+                    'email' => $bookingdetails['email'],
+                    'phone' => $bookingdetails['phone'],
+                    'address' => $bookingdetails['address'],
+                    'departurelocation' => $bookingdetails['departurelocation'],
+                    'arrivallocation' => $bookingdetails['arrivallocation'],
+                    'date_start' => $bookingdetails['date_start'],
+                    'date_end' => $bookingdetails['date_end'],
+                    'vehicle' => $bookingdetails['vehicle'],
+                    'keyword' => $bookingdetails['keyword'],
+                    'tour_code' => $bookingdetails['tour_code'],
+                    'person1' => $bookingdetails['person1'],
+                    'person2' => $bookingdetails['person2'],
+                    'person3' => $bookingdetails['person3'],
+                    'price1' => $bookingdetails['price1'],
+                    'price2' => $bookingdetails['price2'],
+                    'price3' => $bookingdetails['price3'],
+                    'price0' => $bookingdetails['price0'],
+                    'total_price' => $bookingdetails['total_price'],
+                    'number_random' => $bookingdetails['random_number'],
+    
+                ]);
+
+        $user_email = $request->session()->get('booking');
+        $order = DB::table('bookings')->where('number_random', $user_email['random_number'])->first();
+        // Gửi email
+        Mail::send('mail.ordersuccess', ['order' => $order], function ($message) use ($user_email) {
+            $message->to($user_email['email'])->subject("Thanh toán thành công");
+        });
+        // dd($order);
+        $request->session()->forget('order');
         return view('interface.pages.thankyou');
-        // Redirect hoặc trả về response tùy theo yêu cầu của bạn
+       
     }
 
 
@@ -64,10 +114,10 @@ class PaymentController extends Controller
         $accessKey = 'klm05TvNBzhg7h7j';
         $secretKey = 'at67qH6mk8w5Y1nAyMoYKMWACiEi2bsa';
         $orderInfo = "Thanh toán qua MoMo";
-        $amount = $_POST['total_momo'];
+        $amount = '10000';           //$_POST['total_momo']
         $orderId = time() . "";
-        $redirectUrl = "http://localhost:84/Project2/payment/confirm";
-        $ipnUrl = "http://localhost:84/Project2/payment/confirm";
+        $redirectUrl = "http://localhost:84/Traveltour_github/payment/confirm";
+        $ipnUrl = "http://localhost:84/Traveltour_github/payment/confirm";
         $extraData = "";
 
         $requestId = time() . "";
@@ -89,134 +139,85 @@ class PaymentController extends Controller
             'lang' => 'vi',
             'extraData' => $extraData,
             'requestType' => $requestType,
-            'signature' => $signature
+            'signature' => $signature,
+
         );
+
+
         $result = $this->execPostRequest($endpoint, json_encode($data));
-        $jsonResult = json_decode($result, true);  // decode json
+        $jsonResult = json_decode($result, true);
+        // Redirect to MoMo payment URL
+        $dateTime = Carbon::now();
+        $userId = auth()->id();
         if (isset($jsonResult['payUrl'])) {
-            $dateTime = Carbon::now();
-            $userId = auth()->id();     //lấy id người dùng đang đăng nhập
-            // Lưu thông tin thanh toán  vào cơ sở dữ liệu
-            DB::table('order_momo')->insertGetId([
+
+            // Chuyển hướng người dùng đến URL thanh toán của MoMo
+            $request->session()->put('order', [
                 'user_id' => $userId,
-                'partner_code' => $partnerCode,
-                'order_id' => $orderId,
+                'partnerCode' => $partnerCode,
+                'orderId' => $orderId,
                 'amount' => $amount,
-                'order_info' => $orderInfo,
+                'orderInfo' => $orderInfo,
                 'created_at' => $dateTime,
                 'updated_at' => $dateTime
-            ]);
-            $order= DB::table('order_momo')->where('order_id','=',$orderId)->first();      
-            $bookingdetails = $request->session()->get('booking');
-            DB::table('bookings')->insert([
-                'order_id' => $order->id,
-                'order_id_momo' => $orderId,
-                'user_id' => $bookingdetails['user_id'],
-                'schedule_id' => $bookingdetails['schedule_id'],
-                'fullname' => $bookingdetails['fullname'],
-                'email' => $bookingdetails['email'],
-                'phone' => $bookingdetails['phone'],
-                'address' => $bookingdetails['address'],
-                'departurelocation' => $bookingdetails['departurelocation'],
-                'arrivallocation' => $bookingdetails['arrivallocation'],
-                'date_start' => $bookingdetails['date_start'],
-                'date_end' => $bookingdetails['date_end'],
-                'vehicle' => $bookingdetails['vehicle'],
-                'keyword' => $bookingdetails['keyword'],
-                'tour_code' => $bookingdetails['tour_code'],
-                'person1' => $bookingdetails['person1'],
-                'person2' => $bookingdetails['person2'],
-                'person3' => $bookingdetails['person3'],
-                'price1' => $bookingdetails['price1'],
-                'price2' => $bookingdetails['price2'],
-                'price3' => $bookingdetails['price3'],
-                'price0' => $bookingdetails['price0'],
-                'total_price' => $bookingdetails['total_price'],
 
-                // Các trường khác...
             ]);
-            try {
-                Mail::to($bookingdetails['email'])->send(new BookingSuccess(['booking' => $order]));
 
-            } catch (\Exception $e) {
-                \Log::error('Error sending booking success email: ' . $e->getMessage());
-            }
-    
-            // Redirect to MoMo payment URL
+            // dd($request->session()->get('order'));
             return redirect()->to($jsonResult['payUrl']);
+        } else {
+            // Xử lý lỗi khi không nhận được payUrl từ MoMo
+            // Hoặc thực hiện các hành động khác tùy thuộc vào yêu cầu của ứng dụng
+            return redirect()->back();
         }
 
+        // if ($jsonResult['resultCode'] == 0) {
+        //     $dateTime = Carbon::now();
+        //     $userId = auth()->id();     //lấy id người dùng đang đăng nhập
+        //     // Lưu thông tin thanh toán  vào cơ sở dữ liệu
+        //     DB::table('order_momo')->insertGetId([
+        //         'user_id' => $userId,
+        //         'partner_code' => $partnerCode,
+        //         'order_id' => $orderId,
+        //         'amount' => $amount,
+        //         'order_info' => $orderInfo,
+        //         'created_at' => $dateTime,
+        //         'updated_at' => $dateTime
+        //     ]);
+        //     $order = DB::table('order_momo')->where('order_id', '=', $orderId)->first();
+        //     $bookingdetails = $request->session()->get('booking');
+        //     DB::table('bookings')->insert([
+        //         'order_id' => $order->id,
+        //         'order_id_momo' => $orderId,
+        //         'user_id' => $bookingdetails['user_id'],
+        //         'schedule_id' => $bookingdetails['schedule_id'],
+        //         'fullname' => $bookingdetails['fullname'],
+        //         'email' => $bookingdetails['email'],
+        //         'phone' => $bookingdetails['phone'],
+        //         'address' => $bookingdetails['address'],
+        //         'departurelocation' => $bookingdetails['departurelocation'],
+        //         'arrivallocation' => $bookingdetails['arrivallocation'],
+        //         'date_start' => $bookingdetails['date_start'],
+        //         'date_end' => $bookingdetails['date_end'],
+        //         'vehicle' => $bookingdetails['vehicle'],
+        //         'keyword' => $bookingdetails['keyword'],
+        //         'tour_code' => $bookingdetails['tour_code'],
+        //         'person1' => $bookingdetails['person1'],
+        //         'person2' => $bookingdetails['person2'],
+        //         'person3' => $bookingdetails['person3'],
+        //         'price1' => $bookingdetails['price1'],
+        //         'price2' => $bookingdetails['price2'],
+        //         'price3' => $bookingdetails['price3'],
+        //         'price0' => $bookingdetails['price0'],
+        //         'total_price' => $bookingdetails['total_price'],
+        //         'number_random' => $bookingdetails['random_number'],
+
+        //     ]);
+
+        // } 
     }
-    
 
 
-    //     public function vnpay_payment($order)
-    // {   
-    //     $configVnpay = vnpayConfig();
-    //     $vnp_Url = $configVnpay()['vnp_Url'];
-    //     $vnp_Returnurl = $configVnpay()['vnp_Returnurl'];
-    //     $vnp_TmnCode =$configVnpay()['vnp_TmnCode']; //Mã website tại VNPAY 
-    //     $vnp_HashSecret = $configVnpay()['vnp_HashSecret']; //Chuỗi bí mật
-        
-
-    //     $vnp_TxnRef = $order -> code; //Mã đơn hàng. Trong thực tế Merchant cần insert đơn hàng vào DB và gửi mã này sang VNPAY
-    //     $vnp_OrderInfo = (!empty($order->name)) ? $order->name : 'Transaction #'. $order->code.'vnpay';
-    //     $vnp_OrderType = "TravelTour";
-    //     $vnp_Amount = ($order->booking['total_momo']) * 100;
-    //     // floatval(Session::get('total_price')) * 100
-    //     $vnp_Locale = "VN";
-        
-    //     $vnp_IpAddr = $_SERVER['REMOTE_ADDR'];
-
-    //     $inputData = [
-    //         "vnp_Version" => "2.1.0",
-    //         "vnp_TmnCode" => $vnp_TmnCode,
-    //         "vnp_Amount" => $vnp_Amount,
-    //         "vnp_Command" => "pay",
-    //         "vnp_CreateDate" => date('YmdHis'),
-    //         "vnp_CurrCode" => "VND",
-    //         "vnp_IpAddr" => $vnp_IpAddr,
-    //         "vnp_Locale" => $vnp_Locale,
-    //         "vnp_OrderInfo" => $vnp_OrderInfo,
-    //         "vnp_OrderType" => $vnp_OrderType,
-    //         "vnp_ReturnUrl" => $vnp_Returnurl,
-    //         "vnp_TxnRef" => $vnp_TxnRef,
-    //     ];
-    //     dd($inputData);
-    //     if (isset($vnp_BankCode) && $vnp_BankCode != "") {
-    //         $inputData['vnp_BankCode'] = $vnp_BankCode;
-    //     }
-
-    //     ksort($inputData);
-    //     $query = "";
-    //     $i = 0;
-    //     $hashdata = "";
-    //     foreach ($inputData as $key => $value) {
-    //         if ($i == 1) {
-    //             $hashdata .= '&' . urlencode($key) . "=" . urlencode($value);
-    //         } else {
-    //             $hashdata .= urlencode($key) . "=" . urlencode($value);
-    //             $i = 1;
-    //         }
-    //         $query .= urlencode($key) . "=" . urlencode($value) . '&';
-    //     }
-
-    //     $vnp_Url = $vnp_Url . "?" . $query;
-
-    //     if (isset($vnp_HashSecret)) {
-    //         $vnpSecureHash = hash_hmac('sha512', $hashdata, $vnp_HashSecret); //  
-    //         $vnp_Url .= 'vnp_SecureHash=' . $vnpSecureHash;
-    //     }
-    //     $returnData = array(
-    //         'code'=> '00',
-    //         'message'=> 'succes',
-    //         'data'=> $vnp_Url
-    //     );
-
-    //     if (isset($_POST['redirect'])) {
-    //         header('Location: ' . $vnp_Url);
-    //         die();
-    //     } else {
-    //         echo json_encode(['code' => '00', 'message' => 'success', 'data' => $vnp_Url]);
-    //     }
 }
+
+

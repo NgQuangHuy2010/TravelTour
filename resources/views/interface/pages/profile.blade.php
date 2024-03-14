@@ -3,10 +3,10 @@
 @section('content')
 <link rel="stylesheet" href="http://cdn.bootcss.com/toastr.js/latest/css/toastr.min.css">
 
-<div class="container">
+<div class="container pt-5">
     <div class="row justify-content-center">
         <div class="col-md-6 pt-5 mt-5">
-            <h1 class="text-center">Profile</h1>
+            <h1 class="text-center">Thông tin cá nhân</h1>
             <div class="card">
                 <div class="card-body">
                     <div class="form-group d-flex">

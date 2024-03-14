@@ -76,7 +76,7 @@
     <!-- Navbar & Hero Start -->
     <div class="container-fluid position-relative p-0" style="">
         <nav class="navbar navbar-expand-lg navbar-light px-4 px-lg-5 py-3 py-lg-0 sticky-top shadow-sm">
-            <a href="" class="navbar-brand p-0">
+            <a href="{{route('gd.home')}}" class="navbar-brand p-0">
                 <h1 class="text-primary m-0"><i class="fa fa-map-marker-alt me-3"></i>TravelTour</h1>
                 <!-- <img src="img/logo.png" alt="Logo"> -->
             </a>
@@ -111,6 +111,7 @@
     <!-- content////////////////////////////////////////////////////////////////////////////////////////////// -->
 
     <!-- Footer Start -->
+    <div class="wrapper">
     <div class="container-fluid bg-dark text-light footer pt-5 mt-5 wow fadeIn" data-wow-delay="0.1s">
         <div class="container py-5">
             <div class="row g-5">
@@ -170,6 +171,7 @@
         </div>
         
     </div>
+                </div>
     <!-- Footer End -->
 
 

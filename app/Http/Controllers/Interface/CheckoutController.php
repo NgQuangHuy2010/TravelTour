@@ -13,9 +13,9 @@ use Auth;
 class CheckoutController extends Controller
 {
   
-    public function booking($product_id, $schedule_id)
+    public function booking($product_id, $schedule_id,Request $request)
     {
-
+        
         $data['checkout'] = DB::table('products')
             ->join('schedule', 'products.id', '=', 'schedule.tour_id')
             ->select('products.*', 'schedule.*')
@@ -35,7 +35,7 @@ class CheckoutController extends Controller
     {
         //Check if the user is not logged in
         if (!Auth::check()) {
-            $request->session()->put('failed_to_process', 'You must be logged in to proceed with the checkout.');
+            $request->session()->put('failed_to_process', 'Bạn cần đăng nhập trước khi đặt tour!!');
             return redirect()->route('gd.login'); // Redirect the user to the login page
         }
 
@@ -63,7 +63,7 @@ class CheckoutController extends Controller
 
         // Tiếp tục tính toán tổng giá trị
         $total_price = ($request->person1 * $price1) + ($request->person2 * $price2) + ($request->person3 * $price3) + $price0;
-
+        $randomNumber = mt_rand(0, 999999);
         // Lưu dữ liệu người dùng và tổng giá trị vào session
         $request->session()->put('booking', [
             'user_id' => $request->user_id,
@@ -88,10 +88,11 @@ class CheckoutController extends Controller
             'price0' => $request->price0,
             //    'total_price' => number_format($total_price, 0, ',', '.') . ' VNĐ',
             'total_price' => $total_price,
+            'random_number' => $randomNumber,
         
         ]);
         
-            // dd($request->session()->get('booking'));
+             //dd($request->session()->get('booking'));
         return view('interface/pages/pay');
     }
 }

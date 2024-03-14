@@ -23,9 +23,7 @@ use App\Http\Controllers\Interface\ContactController;
 use App\Http\Controllers\Interface\CheckoutController;
 use App\Http\Controllers\Interface\PaymentController;
 
-// //Guide
-// Route::get('/guides',[HomeController::class, 'getGuides'])->name('gd.guide');
-// Route::get('/guide/{id}',[HomeController::class, 'getGuideDetails'])->name('gd.guidedetail');
+
 
 //Booking
 Route::get('/tour-booking/{product_id}/{schedule_id}', [HomeController::class, 'packageBooking'])->name('gd.tourbooking');
@@ -150,6 +148,7 @@ Route::get("/logout", [LoginAdminController::class, 'logout'])->name("ht.logout"
     Route::get('tour/momo', [AdminBookingController::class, 'ordermomo'])->name('ht.ordermomo');
     Route::get('tour/momo/delete/{key}', [AdminBookingController::class, 'deleteorder'])->name('ht.ordermomodel');
     Route::get('tour/momo/detail/{id}', [AdminBookingController::class, 'tourhistory'])->name('ht.ordermomodetail');
+    Route::get('tour/order-details/delete/{key}', [AdminBookingController::class, 'deletebookings'])->name('ht.deletebookings');
     //commments
     Route::get('/comments', [CommentsadminController::class, 'comments'])->name('ht.comments');
     Route::get('/comments/delete/{key}', [CommentsadminController::class, 'delete'])->name('ht.commentsdelete');

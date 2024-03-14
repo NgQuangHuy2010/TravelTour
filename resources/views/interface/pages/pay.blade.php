@@ -45,7 +45,7 @@ $booking = session('booking');
                             <form action="{{ route('gd.momo_payment') }}" method="POST">
                                 @csrf
                                 <input type="hidden" name="total_momo" value="{{ $booking['total_price'] }}">
-                                <button type="submit" class="btn btn-primary" name="payURl">Thanh toán MoMo</button>
+                                <button type="submit" class="btn btn-primary" name="payUrl">Thanh toán MoMo</button>
                             </form>
                         </td>
                        

@@ -21,7 +21,7 @@ if(Session::get("booking")){
            Hidden Inputs for Package Information -->
           <!-- <input type="hidden" name="package_id" value="{{ $product->id }}">
           <input type="hidden" name="package_name" value="{{ $product->name }}">
-          <input type="hidden" name="package_price" value="{{ $product->price }}"> --> -->
+          <input type="hidden" name="package_price" value="{{ $product->price }}"> --> 
 
           <div class="form-group">
             <select name="guide" class="form-control">

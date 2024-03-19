@@ -77,8 +77,20 @@ class PaymentController extends Controller
             $message->to($user_email['email'])->subject("Thanh toán thành công");
         });
         // dd($order);
-        $request->session()->forget('order');
-        return view('interface.pages.thankyou');
+       
+        
+          
+         $request->session()->forget('order');
+         
+        if (empty($request->session()->get('order'))) {
+            $request->session()->put('payment_success', true);
+            return redirect()->route('gd.home');
+
+        }else{
+            return view('interface.pages.thankyou');
+        }
+        
+    
        
     }
 

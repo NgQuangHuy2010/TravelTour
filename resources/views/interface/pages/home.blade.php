@@ -1,6 +1,11 @@
 @extends ('interface/layout_interface')
 @section('content')
 <link rel="stylesheet" href="http://cdn.bootcss.com/toastr.js/latest/css/toastr.min.css">
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+
+
 <?php
  $category=App\Models\Category::where('status',1)->get();
 
@@ -45,6 +50,43 @@
 </div>
 
 
+
+@if(Session::has('payment_success'))
+    <!-- Modal -->
+    <div class="modal fade" id="paymentSuccessModal" tabindex="-1" role="dialog" aria-labelledby="paymentSuccessModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title " id="paymentSuccessModalLabel">Thông báo</h5>
+                    <a type="button" class="close me-3" data-dismiss="modal" aria-label="Close">
+                        <div aria-hidden="true" style="font-size: 2em; ">&times;</div>
+                    </a>
+                </div>
+                <div class="modal-body">
+                    Cảm ơn bạn đã thanh toán! <a href="{{route('gd.history_order')}}">Xem lịch sử đặt tour</a>
+                </div>
+                <div class="modal-footer"  >
+                    <!-- <button type="button" class="btn btn-secondary" class="close" data-dismiss="modal" aria-hidden="true">Đóng</button> -->
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- End Modal -->
+
+    <!-- Script để hiển thị modal khi trang được tải -->
+    <script>
+        $(document).ready(function(){
+            $('#paymentSuccessModal').modal('show');
+        });
+
+        $(document).ready(function(){
+            $('#paymentSuccessModal .close').click(function(){
+                $('#paymentSuccessModal').modal('hide');
+            });
+        });
+    </script>
+     {{ Session::forget('payment_success') }}
+@endif
 
 
 

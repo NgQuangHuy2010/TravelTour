@@ -24,7 +24,8 @@ use App\Http\Controllers\Interface\CheckoutController;
 use App\Http\Controllers\Interface\PaymentController;
 
 
-
+//index chinh
+Route::get("/", [HomeController::class, 'index'])->name("gd.home");
 //Booking
 Route::get('/tour-booking/{product_id}/{schedule_id}', [HomeController::class, 'packageBooking'])->name('gd.tourbooking');
 Route::post('/store-tour-booking/{id}', [HomeController::class, 'storeBookingRequest'])->name('gd.storetourbooking');
@@ -37,8 +38,7 @@ Route::post("/momo_payment", [PaymentController::class, 'momo_payment'])->name("
 Route::get('/payment/confirm', [PaymentController::class, 'confirmPayment'])->name("gd.savepayment");
 //VNPAY
 Route::post("/vn_pay", [PaymentController::class, 'vnpay_payment'])->name("gd.vnpay");
-//index chinh
-Route::get("/", [HomeController::class, 'index'])->name("gd.home");
+
 // danh sach tour
 Route::get("/tour-list/{key}", [TourlistController::class, 'index'])->name("gd.index_tour");
 //details

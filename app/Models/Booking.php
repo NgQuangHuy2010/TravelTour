@@ -42,7 +42,8 @@ class Booking extends Model
 "price2",	
 "price3",	
 "price0",	
-"total_price"
+"total_price",
+"note"
     ];
     protected $primarykey = "id";
     public $timestamps = false;

@@ -80,6 +80,8 @@
             <p><strong>Người lớn :</strong> {{ $order-> person1 }}</p>
             <p><strong>Trẻ em :</strong> {{ $order-> person2 }}</p>
             <p><strong>Trẻ nhỏ :</strong> {{ $order-> person3 }}</p>
+            <p><strong>Ghi chú :</strong> {{ $order-> note }}</p>
+
             <h3 class="text-danger" >Tổng tiền :{{ number_format($order->total_price, 0, ',', '.') }} VNĐ</h3>
         </div>
         <div class="success-message">

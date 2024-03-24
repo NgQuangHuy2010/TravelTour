@@ -3,9 +3,11 @@
 namespace App\Http\Controllers\Interface;
 
 use App\Http\Controllers\Controller;
+use App\Models\Schedule;
 use Illuminate\Http\Request;
 use App\Models\Category;
 use App\Models\Products;
+use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\DB;
 class TourlistController extends Controller
 {
@@ -21,6 +23,7 @@ class TourlistController extends Controller
                $query->where('status', 1);
            })->get();
          }  
+        //  $data['loadproduct'] = Schedule::where('date_start', '>=', Carbon::now())->get();
       
          return view('interface/pages/tour',$data);
       } catch (\Throwable $th) {

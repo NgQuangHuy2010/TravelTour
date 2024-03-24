@@ -100,19 +100,19 @@
                     <div class="row p-3">
                         <div class="col-sm-6">
                         Người lớn<input type="number" min="1" value="1" class="form-control"
-                                placeholder="No adults" name="person1" data-person="adults"
+                                placeholder="No adults" name="person1" data-person="Người lớn"
                                 data-price="{{ $booking->price1 }}">
                         </div>
                         <div class="col-sm-6">
                         Trẻ em<input type="number" min="0" value="0" class="form-control "
-                                placeholder="No children" name="person2" data-person="children"
+                                placeholder="No children" name="person2" data-person="Trẻ em"
                                 data-price="{{ $booking->price2 }}">
                         </div>
                     </div>
                     <div class="row p-3">
                         <div class="col-sm-6 mt-3">
                         Trẻ nhỏ<input type="number" min="0" value="0" class="form-control"
-                                placeholder="No babies" name="person3" data-person="babies"
+                                placeholder="No babies" name="person3" data-person="Trẻ nhỏ"
                                 data-price="{{ $booking->price3 }}">
                         </div>
                     </div>
@@ -123,7 +123,7 @@
 
                     <h5><strong class="text-muted">Yêu cầu khác (nếu có)</strong></h5>
                     <div class="row m-3">
-                        <textarea name="" id="" cols="5" rows="5"></textarea>
+                        <textarea name="note" id="" cols="5" rows="5"></textarea>
                     </div>
 
 

@@ -87,13 +87,15 @@
                     <div class="text-center wow fadeInUp" data-wow-delay="0.1s">
                         <h1 class="mb-5">Du lịch</h1>
                     </div>
-                    <!-- Bạn có thể thêm thẻ card vào đây -->
+                   
                     <?php  foreach($loadproduct as $item) { ?>
+                        
                     @php
-                    $dateStart = $dateStart ?? now()->toDateString(); // Gán giá trị mặc định nếu không tồn tại
+                    $dateStart = $dateStart ?? now()->toDateString(); // now() -> Phương thức của hàm carbon (xử lý ngày hiện tại)
                     @endphp
-                    @if(count($item->schedule) > 0)
+                    @if(count($item->schedule) > 0 )
                     @foreach($item->schedule as $tourDate)
+                    @if($tourDate->date_start > now())     <!-- ngày đi lớn hơn ngày hiện tại thì HIỆN -->
                     <div class=" col-lg-12 col-md-12 wow fadeInUp" data-wow-delay="0.1s">
                         <div class="card product-item package-item mb-4 rounded">
                             <div class="row g-0">
@@ -147,6 +149,7 @@
                             </div>
                         </div>
                     </div>
+                    @endif
                     @endforeach
                     @else
 

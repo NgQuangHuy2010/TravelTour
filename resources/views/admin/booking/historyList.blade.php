@@ -14,7 +14,7 @@
             <div class="card my-5 mx-4">
                 <div class="card-header bg-white d-flex justify-content-between ">
                     <h3 class="card-title float-left p-0 m-0"><strong>Chi tiết hóa đơn</strong></h3>
-                    <a href="{{route('ht.deletebookings',$order['id'])}}" class="btn"  onclick="confirmation(event)"><i
+                    <a href="{{route('ht.deletebookings', $order['id'])}}" class="btn"  onclick="confirmation(event)"><i
                                             class="fa-regular fa-trash-can" style="color: red;" ></i></a>
                 </div>
 
@@ -34,7 +34,7 @@
                                     <th scope="col">Ngày đi</th>
                                     <th scope="col">Ngày về</th>
                                     <th scope="col">Phương tiện di chuyển</th>
-                                  
+                                  <th></th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -62,6 +62,8 @@
                                     <th scope="col">Giá trẻ em</th>
                                     <th scope="col">Giá trẻ nhỏ</th>
                                     <th scope="col">Giá tour</th>
+                                    <th scope="col">Ghi chú</th>
+
                                     <th scope="col" style="color:red;">Tổng tiền</th>
                                 </tr>
                                 <tr>
@@ -74,7 +76,9 @@
                                     <td>{{ $order->price2 }}</td>
                                     <td>{{ $order->price3 }}</td>
                                     <td>{{ $order->price0 }}</td>
-                                    <td>{{ number_format($order['total_price'], 0, ',', '.') }} VNĐ</td>
+                                    <td>{{ $order->note }}</td>
+
+                                    <td class="text-danger">{{ number_format($order['total_price'], 0, ',', '.') }} VNĐ</td>
                                 </tr>
                                
                                 @endforeach

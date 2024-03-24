@@ -94,6 +94,7 @@
                     @endphp
                     @if(count($item->schedule) > 0)
                     @foreach($item->schedule as $tourDate)
+                    @if($tourDate->date_start > now())
                     <div class=" col-lg-12 col-md-12 wow fadeInUp" data-wow-delay="0.1s">
                         <div class="card product-item package-item mb-4 rounded">
                             <div class="row g-0">
@@ -147,6 +148,7 @@
                             </div>
                         </div>
                     </div>
+                    @endif
                     @endforeach
                     @else
 

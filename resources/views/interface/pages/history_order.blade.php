@@ -72,6 +72,7 @@
                                 <th scope="col">Giá người lớn(VND)</th>
                                 <th scope="col">Giá trẻ em(VND)</th>
                                 <th scope="col">Giá trẻ nhỏ(VND)</th>
+                                <th scope="col">Ghi chú</th>
                                 <th scope="col">Giá tour(VND)</th>
                             
                         
@@ -87,14 +88,8 @@
                                     <td>{{$order->address}}</td>
                                     <td>{{ $order->departurelocation }}</td>
                                     <td>{{ $order->arrivallocation }}</td>
-                                    <td>{{ date(
-            'd-m-Y H:i',
-            strtotime($order->date_start)
-        ) }}</td>
-                                    <td>{{ date(
-            'd-m-Y ',
-            strtotime($order->date_end)
-        ) }}</td>
+                                    <td>{{ date( 'd-m-Y H:i', strtotime($order->date_start)) }}</td>
+                                    <td>{{ date( 'd-m-Y ', strtotime($order->date_end) ) }}</td>
                                     <td>{{ $order->vehicle }}</td>
                                     <td>{{$order->keyword}}</td>
                                     <td>{{ $order->tour_code }}</td>
@@ -104,6 +99,7 @@
                                     <td>{{ $order->price1 }}</td>
                                     <td>{{ $order->price2 }} </td>
                                     <td>{{ $order->price3 }}</td>
+                                    <td>{{ $order->note }}</td>
                                     <td>{{ $order->price0}}</td>
                                 </tr>
                             @endforeach

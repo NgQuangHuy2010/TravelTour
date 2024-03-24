@@ -10,12 +10,13 @@ use Illuminate\Support\Facades\DB;
 use App\Models\Schedule;
 use Illuminate\Support\Facades\Session;
 use Auth;
+
 class CheckoutController extends Controller
 {
-  
-    public function booking($product_id, $schedule_id,Request $request)
+
+    public function booking($product_id, $schedule_id, Request $request)
     {
-        
+
         $data['checkout'] = DB::table('products')
             ->join('schedule', 'products.id', '=', 'schedule.tour_id')
             ->select('products.*', 'schedule.*')
@@ -73,7 +74,7 @@ class CheckoutController extends Controller
             'phone' => $request->phone,
             'address' => $request->address,
             'departurelocation' => $request->departurelocation,
-            'arrivallocation' => $request->arrivallocation, 
+            'arrivallocation' => $request->arrivallocation,
             'date_start' => $request->date_start,
             'date_end' => $request->date_end,
             'vehicle' => $request->vehicle,
@@ -89,10 +90,10 @@ class CheckoutController extends Controller
             //    'total_price' => number_format($total_price, 0, ',', '.') . ' VNĐ',
             'total_price' => $total_price,
             'random_number' => $randomNumber,
-        
+            'note' => $request->note,
         ]);
-        
-             //dd($request->session()->get('booking'));
+
+        //dd($request->session()->get('booking'));
         return view('interface/pages/pay');
     }
 }

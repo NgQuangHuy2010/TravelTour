@@ -6,11 +6,14 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Schedule;
 use App\Models\Products;
+use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\Validator;
 class ScheduleController extends Controller
 {
     public function schedule(){
-        $data["schedule"] = Schedule::get();
+
+        $data["schedule"] = Schedule::where('date_start', '>=', Carbon::now())->get();
+    
     return view("admin/schedule/schedule", $data);
     }
     public function add(Request $request)

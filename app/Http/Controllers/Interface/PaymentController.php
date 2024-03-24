@@ -67,7 +67,8 @@ class PaymentController extends Controller
                     'price0' => $bookingdetails['price0'],
                     'total_price' => $bookingdetails['total_price'],
                     'number_random' => $bookingdetails['random_number'],
-    
+                    'note' => $bookingdetails['note'],
+
                 ]);
 
         $user_email = $request->session()->get('booking');
@@ -126,7 +127,7 @@ class PaymentController extends Controller
         $accessKey = 'klm05TvNBzhg7h7j';
         $secretKey = 'at67qH6mk8w5Y1nAyMoYKMWACiEi2bsa';
         $orderInfo = "Thanh toán qua MoMo";
-        $amount = '10000';           //$_POST['total_momo']
+        $amount = $_POST['total_momo'];           //$_POST['total_momo']
         $orderId = time() . "";
         $redirectUrl = "http://localhost:84/Traveltour_github/payment/confirm";
         $ipnUrl = "http://localhost:84/Traveltour_github/payment/confirm";

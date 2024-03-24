@@ -57,14 +57,8 @@
                         <div class="col-sm-4 col-6 offset-sm">
                             <label for="inputPassword" class="col-sm-6 col-form-label required-field">Phương tiện di
                                 chuyển</label>
-                            <select class="form-select" name="vehicle">
-                                <option value="">Chọn phương tiện</option>
-                                <option value="Máy bay" {{ old('vehicle')=='Máy bay' ? 'selected' : '' }}>Máy bay
-                                </option>
-                                <option value="Xe khách" {{ old('vehicle')=='Xe khách' ? 'selected' : '' }}>Xe khách
-                                </option>
-
-                            </select>
+                                <input type="text" class="form-control" name="vehicle"
+                                value="{{old('vehicle',isset($load ->vehicle)?$load ->vehicle:null)}}">
                             {!! $errors->first('vehicle', '<div class="has-error text-danger">:message</div>') !!}
 
                         </div>
@@ -80,15 +74,8 @@
                         <div class="col-sm-4 col-6 offset-sm">
                             <label for="inputPassword" class="col-sm-6 col-form-label">Thời gian đi</label>
 
-                            <select class="form-select" name="keyword"
-                                value=" {{old('keyword',isset($load ->keyword)?$load ->keyword:null)}}">
-                                <option>Chọn thời gian đi</option>
-                                <option value="2 Ngày 1 Đêm">2 Ngày 1 Đêm</option>
-                                <option value="3 Ngày 2 Đêm">3 Ngày 2 Đêm</option>
-                                <option value="4 Ngày 3 Đêm">4 Ngày 3 Đêm</option>
-                                <option value="6 Ngày 5 Đêm">6 Ngày 5 Đêm</option>
-
-                            </select>
+                            <input type="text" class="form-control" name="keyword"
+                                value="{{old('keyword',isset($load ->keyword)?$load ->keyword:null)}}">
                             {!!$errors->first('keyword','<div class="has-error text-danger">:message</div>')!!}
                         </div>
                     </div>
@@ -96,17 +83,8 @@
                         <div class="col-sm-6 offset-sm">
                             <label for="inputPassword" class="col-sm-6 col-form-label">Điểm khởi hành</label>
 
-                            <select class="form-select" name="departurelocation"
+                            <input type="text" class="form-control" name="departurelocation"
                                 value="{{old('departurelocation',isset($load ->departurelocation)?$load ->departurelocation:null)}}">
-                                <option value=""> Chọn
-                                    điểm khởi hành</option>
-
-                                <option value="TP. Hồ Chí Minh" {{ old('departurelocation')=='TP. Hồ Chí Minh'
-                                    ? 'selected' : '' }}>
-                                    TP.Hồ Chí Minh</option>
-                                <option value="Hà Nội" {{ old('departurelocation')=='Hà Nội' ? 'selected' : '' }}>Hà Nội
-                                </option>
-                            </select>
                             {!!$errors->first('departurelocation','<div class="has-error text-danger">:message</div>
                             ')!!}
                         </div>
@@ -114,22 +92,8 @@
 
                             <label for="inputPassword" class="col-sm-6 col-form-label required-field">Điểm đến </label>
 
-                            <select class="form-select" name="arrivallocation">
-                                <option value="">Chọn điểm đến</option>
-                                <option value="Ninh Bình" {{ old('arrivallocation')=='Ninh Bình' ? 'selected' : '' }}>
-                                    Ninh Bình</option>
-                                <option value="Cao Bằng" {{ old('arrivallocation')=='Cao Bằng' ? 'selected' : '' }}>Cao
-                                    Bằng
-                                </option>
-                                <option value="Đà Nẵng" {{ old('arrivallocation')=='Đà Nẵng' ? 'selected' : '' }}>Đà
-                                    Nẵng</option>
-                                <option value="Đà Lạt" {{ old('arrivallocation')=='Đà Lạt' ? 'selected' : '' }}>Đà Lạt
-                                </option>
-                                <option value="Quảng Bình" {{ old('arrivallocation')=='Quảng Bình' ? 'selected' : '' }}>
-                                    Quảng Bình</option>
-
-                                <!-- Thêm các option khác nếu cần -->
-                            </select>
+                            <input type="text" class="form-control" name="arrivallocation"
+                                value="{{old('arrivallocation',isset($load ->arrivallocation)?$load ->arrivallocation:null)}}">
                             {!!$errors->first('arrivallocation','<div class="has-error text-danger">:message</div>')!!}
                         </div>
                     </div>

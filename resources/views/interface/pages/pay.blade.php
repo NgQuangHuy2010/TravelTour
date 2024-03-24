@@ -9,24 +9,24 @@ $booking = session('booking');
 <div class="container-xxl" style="max-width: 1200px; margin-bottom: 200px; margin-top: 100px;">
 
     <div class="row my-4 text-center">
-        <h3 class="text-muted">TOTAL TRANSACTION AMOUNT:</h3>
+        <h3 class="text-muted">Tổng số tiền cần thanh toán:</h3>
         <p class="total-price">{{ number_format($booking['total_price'], 0, ',', '.') }} VNĐ</p>
 
         <div class="table-responsive">
             <table class="table table-bordered">
                 <tbody>
                     <tr>
-                        <th><b>Tourist name</b></th>
+                        <th><b>Tên khách hàng</b></th>
                         <th><b>Email</b></th>
-                        <th><b>Phone</b></th>
-                        <th><b>Address</b></th>
-                        <th><b>Departure Location</b></th>
-                        <th><b>Arrival Location</b></th>
-                        <th><b>Departure Date</b></th>
-                        <th><b>Leave Date</b></th>
-                        <th><b>Transportation</b></th>
-                        <th><b>Total</b></th>
-                        <th>Payment option</th>
+                        <th><b>Số điện thoại</b></th>
+                        <th><b>Địa chỉ</b></th>
+                        <th><b>Điểm đi</b></th>
+                        <th><b>Điểm đến</b></th>
+                        <th><b>Ngày đi</b></th>
+                        <th><b>Ngày về</b></th>
+                        <th><b>Phương tiện di chuyển</b></th>
+                        <th><b>Tổng</b></th>
+                        <th>Phương thức thanh toán</th>
                
                     </tr>
                     <tr>

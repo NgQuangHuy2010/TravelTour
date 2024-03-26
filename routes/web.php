@@ -153,6 +153,9 @@ Route::get("/logout", [LoginAdminController::class, 'logout'])->name("ht.logout"
     //commments
     Route::get('/comments', [CommentsadminController::class, 'comments'])->name('ht.comments');
     Route::get('/comments/delete/{key}', [CommentsadminController::class, 'delete'])->name('ht.commentsdelete');
+    Route::post('comments/delete-selected', [CommentsadminController::class, 'deleteSelected'])->name('comments.delete-selected');
+
+
     // blog
     Route::get('/blog/list', [BlogController::class, 'adminIndex'])->name('blog.admin.index');
     Route::get('/blog/create', [BlogController::class, 'create'])->name('blog.create');

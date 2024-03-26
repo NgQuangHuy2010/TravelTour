@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\ProductRating;
+use Illuminate\Support\Facades\Session;
 class CommentsadminController extends Controller
 {
   public function comments(){
@@ -22,4 +23,14 @@ class CommentsadminController extends Controller
         return redirect()->route('ht.comments'); 
       }
     }
-}
+
+
+    public function deleteSelected(Request $request)
+    {
+        $commentIds = $request->input('comment_ids');
+        ProductRating::whereIn('id', $commentIds)->delete();
+    
+        toastr()->success('Xóa thành công !');
+        return response()->json(['success' => true]);
+    }
+  }

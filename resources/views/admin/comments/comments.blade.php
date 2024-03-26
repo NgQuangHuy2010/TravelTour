@@ -1,5 +1,6 @@
 @extends ('admin.layout_admin')
 @section ('content')
+
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
 <link rel="stylesheet" href="http://cdn.bootcss.com/toastr.js/latest/css/toastr.min.css">
@@ -38,9 +39,16 @@
                 <div class="card-body">
 
                     <div class="table-responsive">
+                   
+                  
                         <table id="datatable" class="table " data-toggle="data-table">
+                        <button id="deleteSelected" class="btn btn-light" data-delete-route="{{ route('comments.delete-selected') }}" data-csrf-token="{{ csrf_token() }}">
+    <i class="fa-regular fa-trash-can" style="color: red;"></i></button>
                             <thead>
+                            
                                 <tr>
+                                
+                                    <th><input type="checkbox" id="checkAll"></th>
                                     <th>No</th>
                                     <th>Tên</th>
                                     <th>Email</th>
@@ -52,11 +60,12 @@
                             </thead>
                             <tbody>
                                 <?php     
-   foreach ($comments as $value){  
-    ?>
+                                foreach ($comments as $value) {  
+                                    ?>
 
 
                                 <tr>
+                                <td><input type="checkbox" class="comment-checkbox" data-id="{{ $value['id'] }}"></td>
                                     <td scope="row">{{ $value["id"]}}</td>
                                     <td>{{ $value["username"]}}</td>
                                     <td>{{ $value["email"]}}</td>
@@ -64,10 +73,11 @@
 
                                     <td style="width: 150px;" > @if($value->rating > 0)
                                         <?php 
-                                        $count=1;
-                                        while($count <= $value['rating']){ ?>
+                                        $count = 1;
+        while ($count <= $value['rating']) { ?>
                                         <span style="   color: #FFD700; font-size:20px;">&#9733;</span>
-                                        <?php $count++;    } ?>
+                                        <?php            $count++;
+        } ?>
                                         @else
                                        
                                         @endif
@@ -76,7 +86,7 @@
 
                                     <td>
 
-                                        <a href="{{route('ht.commentsdelete',$value['id'])}}" class="btn"
+                                        <a href="{{route('ht.commentsdelete', $value['id'])}}" class="btn"
                                             onclick="confirmation(event)"><i class="fa-regular fa-trash-can"
                                                 style="color: red;"></i></a>
                                     </td>
@@ -117,6 +127,18 @@
         });
     }
 </script>
+
+
+
+
+
+
+<script>
+    var deleteSelectedRoute = "{{ route('comments.delete-selected') }}";
+    var csrfToken = "{{ csrf_token() }}";
+</script>
+
+<script src="{{asset('public')}}/admin/assets/js/checkAll.js"></script>
 <script src="http://cdn.bootcss.com/jquery/2.2.4/jquery.min.js"></script>
 <script src="http://cdn.bootcss.com/toastr.js/latest/js/toastr.min.js"></script>
 {!! Toastr::message() !!}

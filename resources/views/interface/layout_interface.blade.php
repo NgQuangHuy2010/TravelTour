@@ -37,17 +37,7 @@
         rel="stylesheet" />
 
 </head>
-<style>
-        html,
-        body {
-          
-        }
 
-       
-
-
-      
-    </style>
 <body>
     <!-- Spinner Start -->
     <div id="spinner"

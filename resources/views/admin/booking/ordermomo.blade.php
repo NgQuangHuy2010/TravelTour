@@ -56,7 +56,7 @@
                     </div>
                 </div>
                 @else
-                <h2 class="text-center text-info font-weight-bold m-3">No payment Found</h2>
+                <h3 class="text-center text-info font-weight-bold m-3">Không có hóa đơn</h3>
                 @endif
 
                 <!-- /.card-body -->

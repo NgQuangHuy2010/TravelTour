@@ -37,7 +37,17 @@
         rel="stylesheet" />
 
 </head>
+<style>
+        html,
+        body {
+          
+        }
 
+       
+
+
+      
+    </style>
 <body>
     <!-- Spinner Start -->
     <div id="spinner"
@@ -86,7 +96,7 @@
             <div class="collapse navbar-collapse" id="navbarCollapse">
                 <div class="navbar-nav ms-auto py-0">
                     <a href="{{route('gd.home')}}" class="nav-item nav-link ">Trang chủ</a>
-                    <a href="{{route('gd.index_tour',0)}}" class="nav-item nav-link">Tour</a>
+                    <a href="{{route('gd.index_tour', 0)}}" class="nav-item nav-link">Tour</a>
                     
                     <a href="{{route('blog.index')}}" class="nav-item nav-link">Tin tức</a>
                    
@@ -94,7 +104,7 @@
                 </div>
                 @if(Auth::check())
                 <a href="{{route('gd.profile')}}" class="btn btn-primary rounded-pill py-2 px-4">{{
-                    Auth::user()->fullname}}</a>
+        Auth::user()->fullname}}</a>
                 <a class="nav-link" href="{{route('gd.logout')}}">Thoát</a>
                 @else
                 <a href="{{route('gd.login')}}" class="btn btn-primary rounded-pill py-2 px-4">Đăng nhập</a>
@@ -119,7 +129,7 @@
                     <h4 class="text-white mb-3">Trang chủ</h4>
                     <a class="btn btn-link" href="{{route('gd.contactindex')}}">Liên hệ</a>
                     <a class="btn btn-link" href="{{route('blog.index')}}">Tin tức</a>
-                    <a class="btn btn-link" href="{{route('gd.index_tour',0)}}">Tour</a>
+                    <a class="btn btn-link" href="{{route('gd.index_tour', 0)}}">Tour</a>
                 
                 </div>
                 <div class="col-lg-3 col-md-6">

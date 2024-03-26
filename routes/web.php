@@ -83,6 +83,7 @@ Route::post("/forget-password", [SecureController::class, 'forgetPasswordPost'])
 Route::get("/reset-password/{token}", [SecureController::class, 'resetPassword'])->name("gd.resetPassword");
 Route::post("/reset-password", [SecureController::class, 'resetPasswordPost'])->name("gd.resetPasswordPost");
 //end reset password
+
 Route::match(['get','post'],"/save-rating/{id}", [DetailsController::class, 'saveRating'])->name('gd.saveRating');
 
 //login vào admin

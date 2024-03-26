@@ -24,7 +24,14 @@ class BlogController extends Controller
     {
         $data["random"] = Blog::inRandomOrder()->limit(3)->get();      
        $data["blogDetail"]  = Blog::find($id);
+       if($data["blogDetail"]){
         return view('interface/pages/blogDetail', $data);
+       }
+       else{
+        return redirect()->route("blog.index");
+
+       }
+      
     }
     public function create()
     {

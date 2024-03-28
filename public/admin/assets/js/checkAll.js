@@ -15,36 +15,56 @@ var csrfToken = document.getElementById('deleteSelected').getAttribute('data-csr
             });
         });
 
-        document.getElementById('deleteSelected').addEventListener('click', function() {
+        document.getElementById('deleteSelected').addEventListener('click', function(event) {
+            event.preventDefault(); // Ngăn chặn hành động mặc định của nút
+        
             var checkboxes = document.querySelectorAll('.comment-checkbox:checked');
             var commentIds = Array.from(checkboxes).map(function(checkbox) {
                 return checkbox.getAttribute('data-id');
             });
-
+        
             if (commentIds.length > 0) {
-                // Gửi yêu cầu xóa tất cả các bình luận đã chọn
-                fetch(deleteSelectedRoute, {
-                    method: 'POST',
-                    headers: {
-                        'X-CSRF-TOKEN': csrfToken,
-                        'Content-Type': 'application/json'
-                    },
-                    body: JSON.stringify({ comment_ids: commentIds })
-                })
-              
-                .then(response => {
-            if (response.ok) {
-                // Xóa thành công, làm mới trang                             
-                location.reload();          
-            } 
-        })
-                .catch(error => {
-                    console.error('Error:', error);
+                // Hiển thị hộp thoại xác nhận
+                Swal.fire({
+                    title: 'Bạn có chắc muốn xóa không?',
+                    text: 'Dữ liệu sẽ bị mất vĩnh viễn!',
+                    icon: 'warning',
+                    showCancelButton: true,
+                    confirmButtonColor: '#009900',
+                    cancelButtonColor: '#d33',
+                    confirmButtonText: 'Đồng ý',
+                    cancelButtonText: 'Hủy',
+                    customClass: {
+                        container: 'custom-swal'
+                    }
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                        // Nếu người dùng xác nhận xóa, gửi yêu cầu xóa
+                        fetch(deleteSelectedRoute, {
+                            method: 'POST',
+                            headers: {
+                                'X-CSRF-TOKEN': csrfToken,
+                                'Content-Type': 'application/json'
+                            },
+                            body: JSON.stringify({ comment_ids: commentIds })
+                        })
+                        .then(response => {
+                            if (response.ok) {
+                                // Xóa thành công, làm mới trang                             
+                                location.reload();          
+                            } 
+                        })
+                        .catch(error => {
+                            console.error('Error:', error);
+                        });
+                    }
                 });
             } else {
+                // Hiển thị thông báo nếu không có checkbox nào được chọn
                 alert('Vui lòng chọn ít nhất một bình luận để xóa.');
             }
         });
+        
 
         function updateDeleteButtonState() {
             var checkboxes = document.querySelectorAll('.comment-checkbox:checked');
@@ -58,6 +78,7 @@ var csrfToken = document.getElementById('deleteSelected').getAttribute('data-csr
                 // Nếu không có checkbox nào được chọn, vô hiệu hóa nút "Xóa tất cả" và giữ màu light
                 deleteButton.classList.remove('btn-danger');
                 deleteButton.classList.add('btn-light');
+               
                 deleteButton.disabled = true;
             }
         }

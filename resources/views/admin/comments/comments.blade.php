@@ -1,6 +1,7 @@
 @extends ('admin.layout_admin')
 @section ('content')
 
+
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
 <link rel="stylesheet" href="http://cdn.bootcss.com/toastr.js/latest/css/toastr.min.css">
@@ -42,7 +43,7 @@
                    
                   
                         <table id="datatable" class="table " data-toggle="data-table">
-                        <button id="deleteSelected" class="btn btn-light" data-delete-route="{{ route('comments.delete-selected') }}" data-csrf-token="{{ csrf_token() }}">
+                        <button  onclick="confirmation(event)" id="deleteSelected" class="btn btn-light mb-3" data-delete-route="{{ route('comments.delete-selected') }}" data-csrf-token="{{ csrf_token() }}">
     <i class="fa-regular fa-trash-can" style="color: red;"></i></button>
                             <thead>
                             
@@ -102,6 +103,7 @@
         </div>
     </div>
 </div>
+
 <script>
     function confirmation(ev) {
         ev.preventDefault();
@@ -137,8 +139,8 @@
     var deleteSelectedRoute = "{{ route('comments.delete-selected') }}";
     var csrfToken = "{{ csrf_token() }}";
 </script>
-
 <script src="{{asset('public')}}/admin/assets/js/checkAll.js"></script>
+
 <script src="http://cdn.bootcss.com/jquery/2.2.4/jquery.min.js"></script>
 <script src="http://cdn.bootcss.com/toastr.js/latest/js/toastr.min.js"></script>
 {!! Toastr::message() !!}

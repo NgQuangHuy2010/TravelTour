@@ -63,7 +63,7 @@
             </a>
           </li> -->
           <li class="nav-item">
-            <a class="nav-link" aria-current="page" href="{{route('ht.account')}}">
+            <a class="nav-link {{ request()->routeIs('ht.account') ? 'active' : '' }}" aria-current="page" href="{{route('ht.account')}}">
               <i class="icon">
                 <i class="fa-solid fa-user" width="20"></i>
 
@@ -72,7 +72,7 @@
             </a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" aria-current="page" href="{{route('ht.categorie')}}">
+            <a class="nav-link {{ request()->routeIs('ht.categorie') ? 'active' : '' }}" aria-current="page" href="{{route('ht.categorie')}}">
               <i class="icon">
                 <i class="fa-solid fa-bars" width="20"></i>
 
@@ -81,7 +81,7 @@
             </a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" aria-current="page" href="{{route('ht.products')}}">
+            <a class="nav-link {{ request()->routeIs('ht.products') ? 'active' : '' }}" aria-current="page" href="{{route('ht.products')}}">
               <i class="icon">
                 <i class="fa-solid fa-map-location-dot" width="20"></i>
               </i>
@@ -90,7 +90,7 @@
           </li>
 
           <li class="nav-item">
-            <a class="nav-link" aria-current="page" href="{{route('ht.schedule')}}">
+            <a class="nav-link {{ request()->routeIs('ht.schedule') ? 'active' : '' }}" aria-current="page" href="{{route('ht.schedule')}}">
               <i class="icon">
                 <i class="fa-solid fa-calendar-days" width="20"></i>
               </i>
@@ -99,7 +99,7 @@
           </li>
 
           <li class="nav-item">
-            <a class="nav-link" aria-current="page" href="{{route('blog.admin.index')}}">
+            <a class="nav-link {{ request()->routeIs('blog.admin.index') ? 'active' : '' }}" aria-current="page" href="{{route('blog.admin.index')}}">
               <i class="icon">
           
                 <i class="fas fa-blog" width="20"></i>
@@ -109,7 +109,7 @@
           </li>
 
           <li class="nav-item">
-            <a class="nav-link" aria-current="page" href="{{route('admin.contact.index')}}">
+            <a class="nav-link {{ request()->routeIs('admin.contact.index') ? 'active' : '' }}" aria-current="page" href="{{route('admin.contact.index')}}">
               <i class="icon">
           
                 <i class="fas fa-headset"  width="20"></i>
@@ -118,7 +118,7 @@
             </a>
           </li>
           <li class="nav-item">
-            <a class="nav-link {" aria-current="page"
+            <a class="nav-link {{ request()->routeIs('ht.comments') ? 'active' : '' }}" aria-current="page"
               href="{{ route('ht.comments') }}">
               <i class="icon">
               
@@ -127,18 +127,10 @@
               <span class="item-name">Bình luận</span>
             </a>
           </li>
-          <!-- <li class="nav-item">
-            <a class="nav-link {{ Request::is('admin/guide*') ? 'active' : '' }}" aria-current="page"
-              href="{{ route('ht.guideindex') }}">
-              <i class="icon">
-                <i class="fa-solid fa-calendar-days" width="20"></i>
-              </i>
-              <span class="item-name">Guide</span>
-            </a>
-          </li>  -->
+         
 
           <li class="nav-item">
-            <a href="{{ route('ht.ordermomo') }}" aria-current="page" class="nav-link">
+            <a href="{{ route('ht.ordermomo') }}" aria-current="page" class="nav-link {{ request()->routeIs('ht.ordermomo') ? 'active' : '' }}">
               <i class="icon">
                 <i class="fa-solid fa-money-bill" width="20"></i>
              

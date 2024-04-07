@@ -47,7 +47,7 @@
                 {!!$errors->first('password','<div class="has-error text-danger">:message</div>')!!}
             </div>
         </div>
-        <div class="mb-3  ">
+        <div class="mb-3 ">
             <label for="" class="col-sm-2 col-form-label">Vai trò</label>
             <div class="form-check form-check-inline ">
                 <input class="form-check-input" type="radio" name="role" checked value=0>

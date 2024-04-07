@@ -98,22 +98,13 @@ Route::get("/logout", [LoginAdminController::class, 'logout'])->name("ht.logout"
 ////////////////////////////
 // Route::middleware('Decentralization')->prefix('system')->group(function () {
     Route::group([ 
-        
         'prefix' => 'system', 
         'namespace' => 'Admin', 
         'middleware' => [ 
         'Decentralization'
         ]
     ], function () {
-    Route::resource('guides', GuideController::class)->names([
-        'index' => 'ht.guideindex',
-        'create' => 'ht.guideadd',
-        'store' => 'admin.guide.store',
-        'show' => 'admin.guide.show',
-        'edit' => 'admin.guide.edit',
-        'update' => 'admin.guide.update',
-        'destroy' => 'admin.guide.destroy',
-    ]);
+   
     Route::get('guides/{guide}', [GuideController::class, 'show'])->name('admin.guide.show');
     Route::get('guides/{guide}/edit', [GuideController::class, 'edit'])->name('admin.guide.edit');
     // //Guide

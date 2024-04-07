@@ -75,10 +75,10 @@
                                     <td style="width: 150px;" > @if($value->rating > 0)
                                         <?php 
                                         $count = 1;
-        while ($count <= $value['rating']) { ?>
+                                        while ($count <= $value['rating']) { ?>
                                         <span style="   color: #FFD700; font-size:20px;">&#9733;</span>
-                                        <?php            $count++;
-        } ?>
+                                        <?php $count++;
+                                            } ?>
                                         @else
                                        
                                         @endif

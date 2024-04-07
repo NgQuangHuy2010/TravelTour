@@ -85,12 +85,14 @@
             </button>
             <div class="collapse navbar-collapse" id="navbarCollapse">
                 <div class="navbar-nav ms-auto py-0">
-                    <a href="{{route('gd.home')}}" class="nav-item nav-link ">Trang chủ</a>
-                    <a href="{{route('gd.index_tour', 0)}}" class="nav-item nav-link">Tour</a>
+                
+                <a href="{{ route('gd.home') }}" class="nav-item nav-link {{ request()->routeIs('gd.home') ? 'active' : '' }}">Trang chủ</a>
+
+                    <a href="{{route('gd.index_tour', 0)}}" class="nav-item nav-link {{ request()->routeIs('gd.index_tour') ? 'active' : '' }}">Tour</a>
                     
-                    <a href="{{route('blog.index')}}" class="nav-item nav-link">Tin tức</a>
+                    <a href="{{route('blog.index')}}" class="nav-item nav-link {{ request()->routeIs('blog.index') ? 'active' : '' }}">Tin tức</a>
                    
-                    <a href="{{route('gd.contactindex')}}" class="nav-item nav-link">Liên hệ</a>
+                    <a href="{{route('gd.contactindex')}}" class="nav-item nav-link {{ request()->routeIs('gd.contactindex') ? 'active' : '' }}">Liên hệ</a>
                 </div>
                 @if(Auth::check())
                 <a href="{{route('gd.profile')}}" class="btn btn-primary rounded-pill py-2 px-4">{{

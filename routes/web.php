@@ -160,5 +160,7 @@ Route::get("/logout", [LoginAdminController::class, 'logout'])->name("ht.logout"
 
 Route::prefix('admin')->group(function () {
     Route::get('/feedbacks', [FeedbackController::class, 'index'])->name('admin.contact.index');
+    Route::post('comments/delete-selected-contact', [FeedbackController::class, 'deleteSelected'])->name('comments.delete-selected-contact');
+
 });
 });
